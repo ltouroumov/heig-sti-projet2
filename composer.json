@@ -1,0 +1,20 @@
+{
+    "name": "heig-sti/web-messenger",
+    "description": "Web App for internal messaging",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Samuel Darcey",
+            "email": "samuel.darcey@heig-vd.ch"
+        },
+        {
+            "name": "Michael Rohrer",
+            "email": "michael.rohrer@heig-vd.ch"
+        },
+        {
+            "name": "Laureline David",
+            "email": "jeremy.david@heig-vd.ch"
+        }
+    ],
+    "require": {}
+}
