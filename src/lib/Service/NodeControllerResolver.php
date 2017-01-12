@@ -20,7 +20,7 @@ class NodeControllerResolver implements ControllerResolverInterface
     private $app;
     private $path;
 
-    const CLASS_PATTERN = '/@(\w+(/\w+)*)/';
+    const CLASS_PATTERN = '#@(\w+(/\w+)*)#';
 
     /**
      * Constructor.
@@ -67,7 +67,7 @@ class NodeControllerResolver implements ControllerResolverInterface
      */
     private function resolve($controllerName)
     {
-        $controllerFile = sprintf("%s/%s.php", $this->path, $controllerName);
+        $controllerFile = sprintf("%s/%s.php", $this->path, substr($controllerName, 1));
 
         if (!file_exists($controllerFile)) {
             throw new \InvalidArgumentException(sprintf("Controller %s could not be found", $controllerName));

@@ -12,7 +12,7 @@ use App\Service\NodeControllerResolver;
 return function($app) {
 
     $app->extend('resolver', function ($resolver, $app) {
-        return new NodeControllerResolver(__DIR__.'/../controllers', $app, $resolver, $app['callback_resolver']);
+        return new NodeControllerResolver(__DIR__ . '/../controllers', $app, $resolver, $app['callback_resolver']);
     });
 
     $app->extend('resolver', function ($resolver, $app) {
@@ -20,7 +20,7 @@ return function($app) {
     });
 
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
-        'twig.path' => __DIR__.'/views',
+        'twig.path' => __DIR__ . '/../views',
     ));
 
 };

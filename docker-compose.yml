@@ -2,33 +2,29 @@ version: '2'
 
 services:
   app:
-    build: ./app
-    links: []
-    volumes:
-      - ./app:/var/www:Z
-
-  static:
-    build: ./static
+    image: webdevops/php-nginx
     ports:
-      - "8080:80"
-    links: [ app ]
+       - "8080:80"
+    links: [mysql]
     volumes:
-      - ./static/public:/var/www/html:Z
+      - .:/app:Z
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - WEB_DOCUMENT_INDEX=/app.php
 
-#   mysql:
-#     build: ./mysql
-#     environment:
-#       - MYSQL_ROOT_PASSWORD=root
-#
-#   phpmyadmin:
-#     image: phpmyadmin/phpmyadmin
-#     container_name: phpmyadmin
-#     environment:
-#       - PMA_HOST=mysql
-#       - PMA_USER=root
-#       - PMA_PASSWORD=root
-#     restart: always
-#     links:
-#       - mysql
-#     ports:
-#       - "9091:80"
+  mysql:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    restart: always
+    links:
+      - mysql
+    ports:
+      - "8081:80"

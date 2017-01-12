@@ -9,5 +9,5 @@
 use Symfony\Component\HttpFoundation as Http;
 
 return function(Http\Request $request, Silex\Application $app) {
-    return $app->render('index');
+    return $app['twig']->render('index.twig');
 };
