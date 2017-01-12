@@ -1,0 +1,6 @@
+db.options:
+  driver: pdo_mysql
+  host: mysql
+  dbname: messaging
+  username: root
+  password: root

@@ -1,0 +1,16 @@
+security.firewalls:
+  secured:
+    pattern: '^/(?!login$)'
+    form:
+      login_path: /login
+      check_path: /s/login
+    logout:
+      logout_path: /s/logout
+    user_provider: app_user_provider
+
+security.role_hierarchy:
+  ROLE_ADMIN: [ROLE_USER]
+
+security.access_rules:
+  - ['^/admin', ROLE_ADMIN]
+  - ['^/.*$', ROLE_USER]

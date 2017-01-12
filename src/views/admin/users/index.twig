@@ -1,0 +1,36 @@
+{% extends 'admin/layout.twig' %}
+
+{% block content %}
+    <div class="col-xs-12">
+        <h2>Users</h2>
+
+        <p>
+            <a href="{{ path('admin_user_new') }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> New User</a>
+        </p>
+
+        <table class="table">
+            <tr>
+                <th width="100">ID</th>
+                <th>Username</th>
+                <th width="200">Roles</th>
+                <th width="100">Enabled</th>
+                <th width="150"></th>
+            </tr>
+
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.roles }}</td>
+                <td>{{ user.enabled ? 'yes' : 'no' }}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <a href="{{ path('admin_user_edit', { 'id': user.id }) }}" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="{{ path('admin_user_rm', { 'id': user.id }) }}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -18,9 +18,18 @@
     ],
     "require": {
         "silex/silex": "^2.0",
-        "twig/twig": "^1.25",
-        "symfony/twig-bridge": "^3.1",
-        "symfony/asset": "^3.1"
+        "twig/twig": "~2.0",
+        "symfony/twig-bridge": "^3.2",
+        "symfony/asset": "^3.1",
+        "symfony/form": "^3.2",
+        "symfony/validator": "^3.2",
+        "symfony/config": "^3.2",
+        "symfony/translation": "^3.2",
+        "symfony/security-csrf": "^3.2",
+        "symfony/security": "^3.2",
+        "symfony/yaml": "^3.2",
+        "doctrine/dbal": "~2.2",
+        "cebe/markdown": "^1.1"
     },
     "autoload": {
         "psr-4": {

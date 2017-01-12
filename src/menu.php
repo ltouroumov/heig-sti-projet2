@@ -54,7 +54,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
                 <li class="divider"></li>
                 <li>
-                    <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    <a href="controllers/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                 </li>
             </ul>
         </li>
@@ -93,7 +93,7 @@ if (session_status() == PHP_SESSION_NONE) {
             ?>
 
             <li>
-                <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+                <a href="controllers/logout.php"><i class="fa fa-fw fa-power-off"></i> Logout</a>
             </li>
 
         </ul>
