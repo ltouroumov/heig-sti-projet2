@@ -6,6 +6,9 @@
  * Time: 10:59 AM
  */
 
+use Symfony\Component\HttpFoundation as Http;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 return function(Silex\Application $app) {
 
     $app->get('/', '@index')->bind('home');
@@ -29,5 +32,11 @@ return function(Silex\Application $app) {
         $admin->match('/users/{id}/rm', '@admin/users/delete')->bind('admin_user_rm');
     });
     // $app->match('/logout', '@logout');
+
+    $app->error(function(\Exception $e, Http\Request $request, $code) use ($app) {
+        return $app['twig']->render('404.twig', [
+            'message' => $e->getMessage()
+        ]);
+    });
 
 };

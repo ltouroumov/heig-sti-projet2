@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpFoundation as Http;
 use Symfony\Component\Form\Extension\Core\Type as Type;
+use Symfony\Component\Validator\Constraints as Assert;
 
 return function (Http\Request $request, Silex\Application $app) {
     $user = $app['db']->executeQuery(
@@ -18,7 +19,8 @@ return function (Http\Request $request, Silex\Application $app) {
             ],
             'second_options' => [
                 'label' => 'Repeat Password',
-            ]
+            ],
+            'constraints' => $app['security.password_constraints']
         ])
         ->getForm();
 

@@ -10,6 +10,7 @@ use App\Service\ClassControllerResolver;
 use App\Service\ConfigLoader;
 use App\Service\NodeControllerResolver;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Validator\Constraints as Assert;
 
 return function($app) {
 
@@ -62,7 +63,7 @@ return function($app) {
     $app->register(new Silex\Provider\FormServiceProvider());
 
     $app['forms.user'] = function () use ($app) {
-        return new \App\Form\UserFormType();
+        return new \App\Form\UserFormType($app);
     };
 
     $app['forms.compose'] = function() use ($app) {
@@ -102,5 +103,8 @@ return function($app) {
 
     $app->register(new Silex\Provider\DoctrineServiceProvider(), $app['config_loader']->load('database.yml'));
 
+    $app['security.password_constraints'] = [
+        new Assert\Length(['min' => 12])
+    ];
 
 };

@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\HttpFoundation as Http;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return function (Http\Request $request, Silex\Application $app) {
     $stmt = $app['db']->executeQuery(
@@ -16,7 +17,7 @@ return function (Http\Request $request, Silex\Application $app) {
 
     $message = $stmt->fetch();
 
-    if ($message !== null) {
+    if ($message !== false) {
         $isRecipient = $message['recipient_id'] == $app->user()->getId();
         if ($isRecipient) {
             $app['db']->executeUpdate(
@@ -30,6 +31,6 @@ return function (Http\Request $request, Silex\Application $app) {
             'show_controls' => $isRecipient
         ]);
     } else {
-        return new Http\Response(null, 404);
+        throw new NotFoundHttpException("Message not found");
     }
 };

@@ -4,12 +4,9 @@
     {% include 'nav.twig' with { 'sidebar': 'sidebar.twig' } %}
 
     <div id="wrapper">
-        <!--Page wrapper-->
-        <div id="page-wrapper">
-            <div class="container-fluid">
-                {% include '_flash.twig' %}
-                {% block content %}{% endblock %}
-            </div>
+        <div class="container-fluid">
+            {% include '_flash.twig' %}
+            {% block content %}{% endblock %}
         </div>
     </div>
 {% endblock %}

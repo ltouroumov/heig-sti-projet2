@@ -17,6 +17,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class UserFormType extends AbstractType
 {
+    private $app;
+
+    /**
+     * UserFormType constructor.
+     * @param $app
+     */
+    public function __construct($app)
+    {
+        $this->app = $app;
+    }
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -34,7 +46,8 @@ class UserFormType extends AbstractType
                 ],
                 'second_options' => [
                     'label' => 'Repeat Password',
-                ]
+                ],
+                'constraints' => $this->app['security.password_constraints']
             ])
             ->add('roles', Type\TextType::class, [
                 'constraints' => [
