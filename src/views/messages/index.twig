@@ -10,30 +10,6 @@
         {{ messages | length }} message(s)
     </p>
 
-    {% for message in messages %}
-    <div class="media">
-        <div class="media-left">
-            {% if message.is_read %}
-            <i class="fa fa-envelope-open fa-3x"></i>
-            {% else %}
-            <i class="fa fa-envelope fa-3x"></i>
-            {% endif %}
-        </div>
-        <div class="media-body">
-            <h4 class="media-heading"><a href="{{ path('message_view', { 'id' : message.id }) }}">{{ message.subject }}</a></h4>
-            <div class="pull-right btn-group btn-group-sm">
-                <a href="{{ path('message_view', { 'id' : message.id }) }}" class="btn btn-default">View</a>
-                {% if show_controls %}
-                <a href="{{ path('compose', { 'to' : message.sender_name }) }}" class="btn btn-default">Answer</a>
-                <a href="{{ path('message_rm', { 'id' : message.id }) }}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                {% endif %}
-            </div>
-            <p>
-                <b>From</b> {{ message.sender_name }} <b>To</b> {{ message.recipient_name }}<br>
-                <b>Sent</b> {{ message.sent_date }}
-            </p>
-        </div>
-    </div>
-    {% endfor %}
+    {% include 'messages/_list.twig' %}
 </div>
 {% endblock %}

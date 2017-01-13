@@ -6,12 +6,10 @@
  * Time: 10:59 AM
  */
 
-use App\Form\UserFormType;
 use App\Service\ClassControllerResolver;
 use App\Service\ConfigLoader;
 use App\Service\NodeControllerResolver;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 return function($app) {
 
@@ -61,8 +59,17 @@ return function($app) {
 
     $app->register(new Silex\Provider\FormServiceProvider());
 
+    $app['forms.user'] = function () use ($app) {
+        return new \App\Form\UserFormType();
+    };
+
+    $app['forms.compose'] = function() use ($app) {
+        return new \App\Form\ComposeFormType($app['db']);
+    };
+
     $app->extend('form.types', function ($types) use ($app) {
-        // $types[] = new UserFormType($app);
+        $types[] = 'forms.user';
+        $types[] = 'forms.compose';
         return $types;
     });
 
@@ -88,8 +95,7 @@ return function($app) {
     );
 
     $app['security.default_encoder'] = function ($app) {
-        // Plain text (e.g. for debugging)
-        return new PlaintextPasswordEncoder();
+        return $app['security.encoder.bcrypt'];
     };
 
     $app->register(new Silex\Provider\DoctrineServiceProvider(), $app['config_loader']->load('database.yml'));

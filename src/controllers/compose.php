@@ -5,36 +5,18 @@ use Symfony\Component\Form\Extension\Core\Type as Type;
 use Symfony\Component\Validator\Constraints as Assert;
 
 return function (Http\Request $request, Silex\Application $app) {
-    $tmp = $app['db']->executeQuery(
-        "SELECT u.id, u.username FROM users u WHERE u.enabled = 1 AND u.id <> ?",
-        [$app->user()->getId()]
-    )->fetchAll();
-    $users = [];
-    foreach ($tmp as $row) {
-        $users[$row['username']] = $row['id'];
-    }
-
     if ($request->query->has('to')) {
-        $recipient = $users[$request->query->get('to')];
+        $tmp = $app['db']->executeQuery(
+            "SELECT u.id FROM users u WHERE u.enabled = 1 AND u.id = ?",
+            [$app->user()->getId()]
+        )->fetch();
+
+        $recipient = $tmp['id'];
     } else {
         $recipient = null;
     }
 
-    $form = $app['form.factory']->createBuilder(Type\FormType::class, [
-        'recipient' => $recipient
-    ])
-        ->add('recipient', Type\ChoiceType::class, [
-            'choices' => $users,
-            'constraints' => [new Assert\NotBlank()]
-        ])
-        ->add('subject', Type\TextType::class, [
-            'constraints' => [new Assert\NotBlank()]
-        ])
-        ->add('content', Type\TextareaType::class, [
-            'constraints' => [new Assert\NotBlank()],
-            'attr' => ['rows' => 20]
-        ])
-        ->getForm();
+    $form = $app['form.factory']->createBuilder('forms.compose')->getForm();
 
     $form->handleRequest($request);
 
