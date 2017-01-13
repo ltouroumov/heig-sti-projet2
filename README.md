@@ -6,4 +6,4 @@ Fix all the security bugs
 
   1. Run `docker-compose up --build`
   2. Access `http://localhost:8080`
-
+  3. Login with `admin` (password `admin`)
