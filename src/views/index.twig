@@ -1,12 +1,12 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-    <div class="col-xs-6">
+    <div class="col-md-6">
         <h2>Unread Messages</h2>
 
         {% include 'messages/_list.twig' with {'show_controls': true} %}
     </div>
-    <div class="col-xs-6">
+    <div class="col-md-6">
         <h2>Send Message</h2>
 
         <form action="{{ path('compose') }}" method="POST">

@@ -19,7 +19,9 @@ return function($app) {
     };
 
     $app['markdown'] = function() {
-        return new \cebe\markdown\GithubMarkdown();
+        $md = new \cebe\markdown\GithubMarkdown();
+        $md->enableNewlines = true;
+        return $md;
     };
 
     $app->extend('resolver', function ($resolver, $app) {
@@ -38,9 +40,9 @@ return function($app) {
     ]);
 
     $app->extend('twig', function($twig, $app) {
-        $twig->addFilter(new \Twig_Filter('markdown', function ($string) use ($app) {
+        $twig->addFunction(new \Twig_Function('markdown', function ($string) use ($app) {
             return $app['markdown']->parse($string);
-        }), ['is_safe' => ['html']]);
+        }), ['pre_escape' => 'html', 'is_safe' => ['all']]);
 
         return $twig;
     });

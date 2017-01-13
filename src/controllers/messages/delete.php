@@ -10,7 +10,9 @@ return function (Http\Request $request, Silex\Application $app) {
     )->fetch();
 
     if ($message != null) {
-        $app['db']->delete('messages', [
+        $app['db']->update('messages', [
+            'deleted' => 1
+        ],[
             'id' => $message['id']
         ]);
 

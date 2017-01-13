@@ -7,7 +7,9 @@ return function (Http\Request $request, Silex\Application $app) {
     $userId = $request->attributes->get('id');
 
     if ($userId != $app->user()->getId()) {
-        $app['db']->delete('users', [
+        $app['db']->update('users', [
+            'deleted' => 1
+        ],[
             'id' => $userId
         ]);
 

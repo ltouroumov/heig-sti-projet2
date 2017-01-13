@@ -14,7 +14,7 @@ return function(Http\Request $request, Silex\Application $app) {
          FROM messages m
          JOIN users ur ON m.recipient = ur.id
          JOIN users us ON m.sender = us.id
-         WHERE m.recipient = ? AND m.is_read = 0
+         WHERE m.recipient = ? AND m.is_read = 0 AND m.deleted = 0
          ORDER BY m.sent_date DESC",
         [$app->user()->getId()]
     );

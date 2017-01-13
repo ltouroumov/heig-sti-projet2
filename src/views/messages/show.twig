@@ -5,18 +5,20 @@
     <h2>{{ message.subject }}</h2>
     {% if show_controls %}
     <div class="pull-right btn-group">
-        <a href="{{ path('compose', { 'to' : message.sender_name }) }}" class="btn btn-default">Answer</a>
+        <a href="{{ path('compose', { 're' : message.id }) }}" class="btn btn-default">Answer</a>
         <a href="{{ path('message_rm', { 'id' : message.id }) }}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
     </div>
     {% endif %}
     <div>
-        <b>From</b> {{ message.sender_name }}
+        <b>From</b> <a href="{{ path('compose', { 'to': message.sender_name }) }}">{{ message.sender_name }}</a>
         <b>To</b> {{ message.recipient_name }}<br>
         <b>Sent</b> {{ message.sent_date }}
     </div>
     <hr/>
     <div>
-        {{ message.content | markdown | raw }}
+        {% autoescape false %}
+        {{ markdown(message.content | escape) }}
+        {% endautoescape %}
     </div>
 </div>
 {% endblock %}

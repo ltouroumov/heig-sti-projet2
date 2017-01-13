@@ -5,18 +5,34 @@ use Symfony\Component\Form\Extension\Core\Type as Type;
 use Symfony\Component\Validator\Constraints as Assert;
 
 return function (Http\Request $request, Silex\Application $app) {
+    $model = [];
+
     if ($request->query->has('to')) {
         $tmp = $app['db']->executeQuery(
-            "SELECT u.id FROM users u WHERE u.enabled = 1 AND u.id = ?",
-            [$app->user()->getId()]
+            "SELECT u.id FROM users u WHERE u.enabled = 1 AND u.username = ?",
+            [$request->query->get('to')]
         )->fetch();
 
-        $recipient = $tmp['id'];
-    } else {
-        $recipient = null;
+        $model = ['recipient' => $tmp['id']];
+    }
+    else if ($request->query->has('re')) {
+        $tmp = $app['db']->executeQuery(
+            "SELECT m.subject, m.sent_date, m.content, m.sender
+             FROM messages m
+             WHERE m.id = ? AND m.recipient = ?",
+            [$request->query->get('re'), $app->user()->getId()]
+        )->fetch();
+
+        if ($tmp) {
+            $model = [
+                'recipient' => $tmp['sender'],
+                'subject' => sprintf("Re: %s", $tmp['subject']),
+                'content' => sprintf("\n\n---\nSubject: %s\nSent: %s\n%s", $tmp['subject'], $tmp['sent_date'], $tmp['content'])
+            ];
+        }
     }
 
-    $form = $app['form.factory']->createBuilder('forms.compose')->getForm();
+    $form = $app['form.factory']->createBuilder('forms.compose', $model)->getForm();
 
     $form->handleRequest($request);
 
