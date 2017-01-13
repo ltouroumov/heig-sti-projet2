@@ -1,3 +1,4 @@
+{% if messages is not empty %}
 {% for message in messages %}
     <div class="media">
         <div class="media-left">
@@ -23,3 +24,6 @@
         </div>
     </div>
 {% endfor %}
+{% else %}
+    <p>No messages</p>
+{% endif %}

@@ -1,0 +1,29 @@
+#login-wrapper {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#login {
+    background: #fff;
+    border-radius: 10px;
+
+    padding: 20px;
+    min-width: 600px;
+}
+
+
+@media(max-width:768px) {
+    #login {
+        flex-grow: 1;
+        border-radius: 0;
+    }
+}
+
+#login h1 {
+    margin-top: 0;
+    text-align: center;
+}

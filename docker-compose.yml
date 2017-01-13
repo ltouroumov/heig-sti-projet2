@@ -5,8 +5,6 @@ services:
     image: webdevops/php-apache-dev:debian-9
     ports:
       - "8080:80"
-    links:
-      - mysql
     volumes:
       - ./src:/app/src:Z
       - ./public:/app/public:Z
@@ -29,7 +27,5 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=root
     restart: always
-    links:
-      - mysql
     ports:
       - "8081:80"

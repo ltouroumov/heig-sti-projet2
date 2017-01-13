@@ -1,16 +1,10 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-<div id="page-wrapper">
+    <div id="login-wrapper">
+        <div id="login">
 
-    <div class="container-fluid">
-
-        <!-- Page Heading -->
-
-        <div class="jumbotron">
-
-            <h1>User Login</h1>
-            <p>Welcome to the brand new HEIG-VD's Web Mail App!</p>
+            <h1><i class="fa fa-envelope-o"></i> Messaging</h1>
 
             <form method="post" action="{{ path('s_login') }}" role="form">
 
@@ -26,13 +20,10 @@
                     <input type="password" name="_password" id="user_pwd" class="form-control" placeholder="Password">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
 
             </form>
 
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
-</div>
 {% endblock %}
