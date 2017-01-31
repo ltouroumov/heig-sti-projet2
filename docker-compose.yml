@@ -3,14 +3,9 @@ version: '2'
 services:
   app:
     image: webdevops/php-apache-dev:debian-9
+    build: .
     ports:
       - "8080:80"
-    volumes:
-      - ./src:/app/src:Z
-      - ./public:/app/public:Z
-      - ./vendor:/app/vendor:Z
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
 
   mysql:
     image: mariadb
